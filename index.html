@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header avec Tailwind CSS</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="w-full bg-cover bg-center" style="height:32rem; background-image: url(img/header.jpeg);">
+            <div class="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
+                <div class="text-center">
+                    <h1 class="text-white text-2xl font-semibold uppercase md:text-3xl">CHERCHEZ PARMI PLUS DE 1500 RECETTES <br>
+                        DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
+                        <div class="items-center justify-center rounded bg-white">
+                            <form action="votre-action-de-recherche" method="get" class="flex items-center">
+                                <input type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
+                                <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                    </svg>
+                                    <span class="sr-only">Search</span>
+                                </button>
+                            </form>
+                        </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </header>
+
+<div class="h-48 relative top-5 bg-white text-black px-40">
+    <!-- Votre barre de navigation ici -->
+    
+
+    <!-- This is an example component -->
+<div class="flex space-x-4 max-w-lg">
+    
+    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown">Dropdown button <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+
+    <!-- Dropdown menu -->
+    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+        
+        <ul class="py-1" aria-labelledby="dropdown">
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Earnings</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
+        </li>
+        </ul>
+    </div>
+
+    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown">Dropdown button <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+
+    <!-- Dropdown menu -->
+    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+        
+        <ul class="py-1" aria-labelledby="dropdown">
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Earnings</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
+        </li>
+        </ul>
+    </div>
+
+    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown">Dropdown button <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+
+    <!-- Dropdown menu -->
+    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+    
+        <ul class="py-1" aria-labelledby="dropdown">
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Earnings</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
+        </li>
+        </ul>
+    </div>
+
+    
+
+        
+
+    
+</div>
+
+<script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+        
+    
+</div>
+
+<div id="recipes-container" class="main-section flex flex-wrap justify-center gap-16 ml-[4%] mr-[4%] mt-8">
+    
+</div>
+
+
+<script type="module" src="/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+:root {
+  --Yellow: #FFD15B;
+}
+
+.title_search_bar {
+  color: var(--Yellow);
+  font-family: 'Anton', sans-serif;
+  font-size: 44px;
+  font-style: normal;
+  line-height: normal;
+}
+
