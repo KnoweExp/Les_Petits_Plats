@@ -11,7 +11,7 @@ function createRecipeCard(recipe) {
     const ingredientsHtml = recipe.ingredients.map(ing => `
         <div class="flex flex-col mb-[1.3em] w-[35%] mr-[10%]">
             <p class="text-xs font-medium">${ing.ingredient}</p>
-            <span class="text-xs font-manrope text-gray-400">${ing.quantity || ''} ${ing.unit || ''}</span>
+            <span class="text-xs font-manrope text-gray-400">${ing.quantity === undefined ? '' : ing.quantity} ${ing.unit || ''}</span>
         </div>
     `).join('');
 
@@ -42,3 +42,55 @@ function createRecipeCard(recipe) {
         </div>
     `;
 }
+
+// Récupérer les éléments
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
+
+searchButton.addEventListener('click', searchRecipes);
+
+function searchRecipes(event) {
+  // Ajouter un écouteur d'événement sur le bouton
+  event.preventDefault();
+
+  // Récupérer la valeur du champ input
+  const searchTerm = searchInput.value;
+
+  let results = [];
+
+  if (searchTerm.length >= 3) {
+    // Filtrer les recettes 
+    recipes.forEach(recipe => {
+      // Vérifier si le terme de recherche est dans le titre
+      if (recipe.name.includes(searchTerm)) {
+        results.push(recipe);
+      }
+
+      // Vérifier si le terme de recherche est dans la description
+      if (recipe.description.includes(searchTerm)) {
+        results.push(recipe);
+      }
+
+      const ingredients = recipe.ingredients;
+      if (ingredients.some(ingredient => ingredient.ingredient.includes(searchTerm))) {
+        results.push(recipe);
+      }
+    });
+  }
+
+  // Afficher les résultats
+  displayRecipes(results);
+}
+
+// Fonction pour afficher les recettes
+function displayRecipes(filteredRecipes) {
+    container.innerHTML = '';
+  
+    filteredRecipes.forEach(recipe => {
+      const cardHtml = createRecipeCard(recipe);
+      const cardElement = document.createElement('div');
+      cardElement.innerHTML = cardHtml;
+      container.appendChild(cardElement);
+    });
+  }
+

@@ -6,17 +6,24 @@
     <title>Header avec Tailwind CSS</title>
     <link href="styles.css" rel="stylesheet">
 </head>
-<body>
-    <header>
+<body class="font-anton">
+    <header class="bg-gray-900 bg-opacity-50">
         <div class="w-full bg-cover bg-center" style="height:32rem; background-image: url(img/header.jpeg);">
-            <div class="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
+            
+            <div class="p-4">
+                <!-- Logo -->
+                <a href="/" class="flex">
+                    <img src="img/logo.png" alt="Logo" class="h-6">
+                </a>
+            </div>
+            <div class="flex items-center justify-center h-full w-full">
                 <div class="text-center">
-                    <h1 class="text-white text-2xl font-semibold uppercase md:text-3xl">CHERCHEZ PARMI PLUS DE 1500 RECETTES <br>
+                    <h1 class="text-yellow-400 text-2xl md:text-3xl">CHERCHEZ PARMI PLUS DE 1500 RECETTES <br>
                         DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
                         <div class="items-center justify-center rounded bg-white">
-                            <form action="votre-action-de-recherche" method="get" class="flex items-center">
-                                <input type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
-                                <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <form action="votre-action-de-recherche" method="get" class="flex p-2 items-center">
+                                <input id="searchInput" type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
+                                <button id="searchButton" type="submit" class="p-3.5 text-sm font-medium text-white bg-black rounded-xl border border-black hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-black dark:bg-black dark:hover:bg-yellow-300 dark:focus:ring-yellow-400">
                                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                     </svg>
@@ -31,90 +38,78 @@
 
     </header>
 
-<div class="h-48 relative top-5 bg-white text-black px-40">
-    <!-- Votre barre de navigation ici -->
-    
+<div class="bg-gray-200">
 
-    <!-- This is an example component -->
-<div class="flex space-x-4 max-w-lg">
-    
-    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown">Dropdown button <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-
-    <!-- Dropdown menu -->
-    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+    <div class="flex justify-between relative top-5 text-black px-40">
         
-        <ul class="py-1" aria-labelledby="dropdown">
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Earnings</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
-        </li>
-        </ul>
+        <div class="flex space-x-16">
+            
+            <div class="relative">
+                <input type="checkbox" id="sortbox1" class="hidden absolute">
+                <label for="sortbox1" class="flex items-center space-x-1 cursor-pointer">
+                <span class="text-lg">Ingrédients</span>
+                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </label>
+            
+                    <div id="sortboxmenu1" class="absolute mt-1 right-1 top-full min-w-max shadow rounded opacity-0 bg-gray-300 border border-gray-400 transition delay-75 ease-in-out z-10">
+                    <ul class="block text-right text-gray-900">
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Featured</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Newest</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Price: Low to High</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Price: High to Low</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <input type="checkbox" id="sortbox2" class="hidden absolute">
+                <label for="sortbox2" class="flex items-center space-x-1 cursor-pointer">
+                <span class="text-lg">Appareils</span>
+                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </label>
+            
+                    <div id="sortboxmenu2" class="absolute mt-1 right-1 top-full min-w-max shadow rounded opacity-0 bg-gray-300 border border-gray-400 transition delay-75 ease-in-out z-10">
+                    <ul class="block text-right text-gray-900">
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Featured</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Newest</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Price: Low to High</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Price: High to Low</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <input type="checkbox" id="sortbox3" class="hidden absolute">
+                <label for="sortbox3" class="flex items-center space-x-1 cursor-pointer">
+                <span class="text-lg">Ustensiles</span>
+                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </label>
+            
+                    <div id="sortboxmenu3" class="absolute mt-1 right-1 top-full min-w-max shadow rounded opacity-0 bg-gray-300 border border-gray-400 transition delay-75 ease-in-out z-10">
+                    <ul class="block text-right text-gray-900">
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Featured</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Newest</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Price: Low to High</a></li>
+                        <li><a href="#" class="block px-3 py-2 hover:bg-gray-200">Price: High to Low</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="flex items-center">
+            <span>1500 recettes</span>
+        </div>
     </div>
 
-    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown">Dropdown button <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-
-    <!-- Dropdown menu -->
-    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+    <div id="recipes-container" class="main-section flex flex-wrap justify-center gap-16 ml-[4%] mr-[4%] mt-8">
         
-        <ul class="py-1" aria-labelledby="dropdown">
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Earnings</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
-        </li>
-        </ul>
     </div>
-
-    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown">Dropdown button <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-
-    <!-- Dropdown menu -->
-    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
-    
-        <ul class="py-1" aria-labelledby="dropdown">
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Earnings</a>
-        </li>
-        <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
-        </li>
-        </ul>
-    </div>
-
-    
-
-        
-
-    
-</div>
-
-<script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
-        
-    
-</div>
-
-<div id="recipes-container" class="main-section flex flex-wrap justify-center gap-16 ml-[4%] mr-[4%] mt-8">
-    
 </div>
 
 

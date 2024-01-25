@@ -8,11 +8,25 @@
   --Yellow: #FFD15B;
 }
 
+
+
 .title_search_bar {
   color: var(--Yellow);
   font-family: 'Anton', sans-serif;
   font-size: 44px;
   font-style: normal;
   line-height: normal;
+}
+
+#sortbox2:checked ~ #sortboxmenu2 {
+  opacity: 1;
+}
+
+#sortbox1:checked ~ #sortboxmenu1 {
+  opacity: 1;
+}
+
+#sortbox3:checked ~ #sortboxmenu3 {
+  opacity: 1;
 }
 

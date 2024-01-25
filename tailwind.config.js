@@ -4,7 +4,11 @@ module.exports = {
   "./index.html",
   "./main.js",],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'anton': ['Anton','sans-serif'],
+      }
+    },
   },
   plugins: [],
 }
