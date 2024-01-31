@@ -6,6 +6,133 @@ recipes.forEach(recipe => {
     container.innerHTML += recipeCardHtml;
 });
 
+document.getElementById('ustensilsButton').addEventListener('click', function() {
+  var menu = document.getElementById('ustensilsMenu');
+  menu.classList.toggle('show-dropdown'); // Ajoute ou retire la classe 'show-dropdown'
+
+  // Ajoutez ou supprimez la classe globale
+  document.body.classList.toggle('dropdown-open');
+});
+
+document.getElementById('appareilsButton').addEventListener('click', function() {
+  var menu = document.getElementById('appareilsMenu');
+  menu.classList.toggle('show-dropdown'); // Ajoute ou retire la classe 'show-dropdown'
+
+  // Ajoutez ou supprimez la classe globale
+  document.body.classList.toggle('dropdown-open');
+});
+
+document.getElementById('ingredientsButton').addEventListener('click', function() {
+  var menu = document.getElementById('ingredientsMenu');
+  menu.classList.toggle('show-dropdown'); // Ajoute ou retire la classe 'show-dropdown'
+
+  // Ajoutez ou supprimez la classe globale
+  document.body.classList.toggle('dropdown-open');
+});
+
+
+
+const getAllUnique = (category) => {
+  return [...new Set(recipes.flatMap(recipe => recipe[category]))];
+};
+
+const uniqueIngredients = getAllUnique('ingredients').map(ingredient => ingredient.ingredient);
+const uniqueAppliances = getAllUnique('appliance');
+const uniqueUstensils = getAllUnique('ustensils').flat();
+
+
+
+const populateDropdown = (listId, items) => {
+  const listElement = document.getElementById(listId);
+  listElement.innerHTML = '';
+  items.forEach(item => {
+    const li = document.createElement('li'); // Créer l'élément li
+    const a = document.createElement('a'); // Créer l'élément a
+
+    a.href = '#'; // Définir le href pour l'élément a
+    a.textContent = item; // Utiliser item comme texte de l'élément a
+    a.classList.add('block', 'px-3', 'py-2', 'hover:bg-gray-200'); // Ajouter des classes à l'élément a
+
+    // Gestionnaire de clic pour chaque élément
+    a.addEventListener('click', function() {
+      // Ajouter l'ustensile sélectionné comme tag
+      addSelectedTag(item);
+
+      // Optionnel : mettre à jour la recherche globale avec le nouvel ustensile sélectionné
+      // updateGlobalSearch(item);
+  });
+
+    li.appendChild(a); // Ajouter l'élément a comme enfant de l'élément li
+    listElement.appendChild(li); // Ajouter l'élément li à l'élément de liste (ul ou ol)
+});
+};
+
+populateDropdown('ingredientsList', uniqueIngredients);
+populateDropdown('appareilsList', uniqueAppliances);
+populateDropdown('ustensilsList', uniqueUstensils);
+
+const addSelectedTag = (item) => {
+  const selectedTagsContainer = document.getElementById('selected-tags');
+
+  // Créer le conteneur pour le tag
+  const tagContainer = document.createElement('div');
+  tagContainer.classList.add('tag-container'); // Ajoutez des styles appropriés pour ce conteneur
+
+  // Créer le span pour le texte du tag
+  const tagText = document.createElement('span');
+  tagText.textContent = item;
+  tagText.classList.add('selected-tag'); // Ajoutez des styles appropriés pour les tags
+
+  // Créer le bouton avec SVG pour supprimer le tag
+  const removeBtn = document.createElement('button');
+  removeBtn.setAttribute('type', 'button');
+  removeBtn.classList.add('remove-tag-btn', 'text-sm', 'font-medium', 'text-black', 'rounded-xl', 'focus:ring-4', 'focus:outline-none');
+  removeBtn.innerHTML = `
+      <svg height="15px" viewBox="0 0 512 512" width="15px" xmlns="http://www.w3.org/2000/svg">
+          <!-- Votre SVG ici -->
+      </svg>
+      <span class="sr-only">Remove tag</span>
+  `;
+  removeBtn.addEventListener('click', function(event) {
+      event.preventDefault(); // Empêchez le comportement par défaut du bouton
+      selectedTagsContainer.removeChild(tagContainer);
+      console.log("Tag supprimé");
+  });
+
+  // Ajouter le texte du tag et le bouton de suppression au conteneur du tag
+  tagContainer.appendChild(tagText);
+  tagContainer.appendChild(removeBtn);
+
+  // Ajouter le conteneur du tag au conteneur global des tags sélectionnés
+  selectedTagsContainer.appendChild(tagContainer);
+};
+
+
+// Supposons que `uniqueIngredients`, `uniqueAppliances`, et `uniqueUstensils` sont vos tableaux d'éléments uniques
+filterAndPopulateDropdown('searchInputING', 'ingredientsList', uniqueIngredients);
+filterAndPopulateDropdown('searchInputAPP', 'appareilsList', uniqueAppliances);
+filterAndPopulateDropdown('searchInputUST', 'ustensilsList', uniqueUstensils);
+
+
+function filterAndPopulateDropdown(inputId, listId, itemsArray) {
+  document.getElementById(inputId).addEventListener('input', function() {
+      const searchQuery = this.value.toLowerCase();
+      let itemsToDisplay = [];
+
+      // Vérifier que la longueur de la chaîne de recherche est d'au moins 3 caractères
+      if (searchQuery.length >= 3) {
+          itemsToDisplay = itemsArray.filter(item =>
+              item.toLowerCase().includes(searchQuery)
+          );
+      } else {
+          itemsToDisplay = itemsArray; // Afficher tous les éléments si la chaîne de recherche est vide ou moins de 3 caractères
+      }
+
+      populateDropdown(listId, itemsToDisplay);
+  });
+}
+
+
 function createRecipeCard(recipe) {
     // Générer les ingrédients
     const ingredientsHtml = recipe.ingredients.map(ing => `
@@ -93,4 +220,9 @@ function displayRecipes(filteredRecipes) {
       container.appendChild(cardElement);
     });
   }
+
+  
+
+
+
 

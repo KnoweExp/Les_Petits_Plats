@@ -26,7 +26,132 @@
   opacity: 1;
 }
 
-#sortbox3:checked ~ #sortboxmenu3 {
-  opacity: 1;
+#ustensilsButton, #ustensilsMenu, .action-Ustensiles {
+  width: 180px; /* largeur dropdown et du bouton*/
 }
+
+#searchInputUST {
+  border: #C6C6C6 1px solid;
+  margin-right: -40px;
+}
+
+#searchInputAPP {
+  border: #C6C6C6 1px solid;
+  margin-right: -40px;
+}
+
+#searchInputING {
+  border: #C6C6C6 1px solid;
+  margin-right: -40px;
+}
+
+#ustensilsMenu {
+  background-color: white;
+  border-radius: 0px 0px 11px 11px;
+  margin-top: -2px;
+}
+
+#appareilsMenu {
+  background-color: white;
+  border-radius: 0px 0px 11px 11px;
+  margin-top: -2px;
+}
+
+#ingredientsMenu {
+  background-color: white;
+  border-radius: 0px 0px 11px 11px;
+  margin-top: -2px;
+}
+
+
+#ustensilsMenu, form {
+  margin-top: -11px;
+}
+
+
+
+#ustensilsButton {
+  border-radius: 11px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px 16px;
+}
+
+#appareilsButton {
+  border-radius: 11px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px 16px;
+}
+
+#ingredientsButton {
+  border-radius: 11px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px 16px;
+}
+
+.show-dropdown {
+  opacity: 1 !important; /* Force l'opacité à 1 */
+  visibility: visible !important; /* Rend le menu visible */
+  transform: translateY(0) !important; /* Remet le menu à sa position initiale si vous avez une transformation appliquée */
+  transition-delay: 0s !important; /* Annule tout délai de transition pour l'affichage */
+}
+
+
+.dropdown-open ul li a {
+  pointer-events: auto; /* Active la possibilité de cliquer sur les liens lorsque le dropdown est ouvert */
+  cursor: pointer; /* Définit le curseur par défaut pour les liens actifs */
+}
+
+/* Styles pour les liens de tous les dropdowns lorsque aucun dropdown n'est ouvert */
+body:not(.dropdown-open) ul li a {
+  pointer-events: none; /* Désactive la possibilité de cliquer sur les liens lorsque aucun dropdown n'est ouvert */
+  cursor: default; /* Affiche un curseur par défaut pour les liens non actifs */
+}
+
+
+.tagButton {
+  border-radius: 11px;
+  background-color: #FFD15B;
+  padding: 10px 16px;
+}
+
+.selected-tags-container {
+  display: flex; /* Affiche les éléments enfants en ligne */
+  flex-wrap: wrap; /* Permet aux éléments enfants de passer à la ligne suivante si nécessaire */
+  gap: 10px; /* Ajoute un peu d'espace entre les tags */
+}
+
+.tag-container {
+  display: inline-flex; /* Affiche le texte du tag et le bouton de suppression en ligne */
+  align-items: center; /* Centre les éléments verticalement */
+  padding: 5px;
+  border-radius: 20px; /* Bordures arrondies pour le tag */
+}
+
+.remove-tag-btn {
+  margin-left: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  position: relative; /* Assurez-vous que le positionnement permet au z-index de fonctionner */
+  z-index: 10; /* Augmentez le z-index si nécessaire */
+}
+
+.remove-tag-btn svg {
+  fill: #000; /* Couleur du SVG, assurez-vous qu'elle est visible sur le fond */
+  position: relative;
+  z-index: 11; /* Assurez-vous que le SVG est au-dessus du fond du bouton */
+}
+
+.remove-tag-btn:hover svg {
+  fill: #555; /* Changez la couleur au survol pour indiquer l'interactivité */
+}
+
+.remove-tag-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Effet de survol léger pour le fond du bouton */
+}
+
+
+
+
 
