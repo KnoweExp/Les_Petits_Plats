@@ -1,4 +1,6 @@
 import recipes from './data/recipes.js';
+let selectedTags = [];
+
 
 const container = document.getElementById('recipes-container');
 recipes.forEach(recipe => {
@@ -97,14 +99,25 @@ const addSelectedTag = (item) => {
       event.preventDefault(); // Empêchez le comportement par défaut du bouton
       selectedTagsContainer.removeChild(tagContainer);
       console.log("Tag supprimé");
+
+      // Retirer le tag du tableau
+    selectedTags = selectedTags.filter(t => t !== item);
+
+    // Relancer la recherche avec les tags restants
+    searchRecipes();
   });
 
   // Ajouter le texte du tag et le bouton de suppression au conteneur du tag
   tagContainer.appendChild(tagText);
   tagContainer.appendChild(removeBtn);
 
+  if (!selectedTags.includes(item)) {
+    selectedTags.push(item);
+}
+
   // Ajouter le conteneur du tag au conteneur global des tags sélectionnés
   selectedTagsContainer.appendChild(tagContainer);
+  searchRecipes();
 };
 
 
@@ -178,32 +191,28 @@ searchButton.addEventListener('click', searchRecipes);
 
 function searchRecipes(event) {
   // Ajouter un écouteur d'événement sur le bouton
-  event.preventDefault();
+  if (event && event.preventDefault) {
+    event.preventDefault();
+  }
 
   // Récupérer la valeur du champ input
   const searchTerm = searchInput.value;
 
   let results = [];
 
-  if (searchTerm.length >= 3) {
-    // Filtrer les recettes 
-    recipes.forEach(recipe => {
-      // Vérifier si le terme de recherche est dans le titre
-      if (recipe.name.includes(searchTerm)) {
-        results.push(recipe);
-      }
+  recipes.forEach(recipe => {
+    const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
+    const appliance = recipe.appliance.toLowerCase();
+    const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
+    const recipeTags = [...ingredients, appliance, ...ustensils];
 
-      // Vérifier si le terme de recherche est dans la description
-      if (recipe.description.includes(searchTerm)) {
-        results.push(recipe);
-      }
+    const matchesSearchTerm = searchTerm.length < 3 || recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) || recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesTags = selectedTags.every(tag => recipeTags.includes(tag.toLowerCase()));
 
-      const ingredients = recipe.ingredients;
-      if (ingredients.some(ingredient => ingredient.ingredient.includes(searchTerm))) {
+    if (matchesSearchTerm && matchesTags) {
         results.push(recipe);
-      }
-    });
-  }
+    }
+});
 
   // Afficher les résultats
   displayRecipes(results);
