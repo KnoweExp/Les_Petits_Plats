@@ -1028,24 +1028,24 @@ video {
 #ustensilsMenu {
   background-color: white;
   border-radius: 0px 0px 11px 11px;
-  margin-top: -2px;
+  margin-top: -11px;
 }
 
 #appareilsMenu {
   background-color: white;
   border-radius: 0px 0px 11px 11px;
-  margin-top: -2px;
+  margin-top: -11px;
 }
 
 #ingredientsMenu {
   background-color: white;
   border-radius: 0px 0px 11px 11px;
-  margin-top: -2px;
-}
-
-#ustensilsMenu, form {
   margin-top: -11px;
 }
+
+/* #ustensilsMenu, form {
+  margin-top: -11px;
+} */
 
 #ustensilsButton {
   border-radius: 11px;
@@ -1109,12 +1109,8 @@ body:not(.dropdown-open) ul li a {
 
 .tag-container {
   display: inline-flex;
-  /* Affiche le texte du tag et le bouton de suppression en ligne */
   align-items: center;
-  /* Centre les éléments verticalement */
-  padding: 5px;
-  border-radius: 20px;
-  /* Bordures arrondies pour le tag */
+  gap: 2px;
 }
 
 .remove-tag-btn {

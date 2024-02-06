@@ -10,25 +10,22 @@ recipes.forEach(recipe => {
 
 document.getElementById('ustensilsButton').addEventListener('click', function() {
   var menu = document.getElementById('ustensilsMenu');
-  menu.classList.toggle('show-dropdown'); // Ajoute ou retire la classe 'show-dropdown'
+  menu.classList.toggle('show-dropdown');
 
-  // Ajoutez ou supprimez la classe globale
   document.body.classList.toggle('dropdown-open');
 });
 
 document.getElementById('appareilsButton').addEventListener('click', function() {
   var menu = document.getElementById('appareilsMenu');
-  menu.classList.toggle('show-dropdown'); // Ajoute ou retire la classe 'show-dropdown'
+  menu.classList.toggle('show-dropdown');
 
-  // Ajoutez ou supprimez la classe globale
   document.body.classList.toggle('dropdown-open');
 });
 
 document.getElementById('ingredientsButton').addEventListener('click', function() {
   var menu = document.getElementById('ingredientsMenu');
-  menu.classList.toggle('show-dropdown'); // Ajoute ou retire la classe 'show-dropdown'
+  menu.classList.toggle('show-dropdown');
 
-  // Ajoutez ou supprimez la classe globale
   document.body.classList.toggle('dropdown-open');
 });
 
@@ -43,29 +40,30 @@ const uniqueAppliances = getAllUnique('appliance');
 const uniqueUstensils = getAllUnique('ustensils').flat();
 
 
-
+/**
+ * affiche des tags dans une liste déroulante par catégorie
+ * ecoute le clique sur un item pour l'ajouter a la liste des tags selectionnés
+ * @param {*} listId est l'identifiant de la catégorie
+ * @param {*} items 
+ */
 const populateDropdown = (listId, items) => {
   const listElement = document.getElementById(listId);
   listElement.innerHTML = '';
   items.forEach(item => {
-    const li = document.createElement('li'); // Créer l'élément li
-    const a = document.createElement('a'); // Créer l'élément a
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#'; 
+    a.textContent = item; 
+    a.classList.add('block', 'px-3', 'py-2', 'hover:bg-gray-200');
 
-    a.href = '#'; // Définir le href pour l'élément a
-    a.textContent = item; // Utiliser item comme texte de l'élément a
-    a.classList.add('block', 'px-3', 'py-2', 'hover:bg-gray-200'); // Ajouter des classes à l'élément a
-
-    // Gestionnaire de clic pour chaque élément
     a.addEventListener('click', function() {
-      // Ajouter l'ustensile sélectionné comme tag
       addSelectedTag(item);
-
-      // Optionnel : mettre à jour la recherche globale avec le nouvel ustensile sélectionné
+      // TODO : mettre à jour la recherche globale avec le nouvel ustensile sélectionné
       // updateGlobalSearch(item);
   });
 
-    li.appendChild(a); // Ajouter l'élément a comme enfant de l'élément li
-    listElement.appendChild(li); // Ajouter l'élément li à l'élément de liste (ul ou ol)
+    li.appendChild(a); 
+    listElement.appendChild(li);
 });
 };
 
@@ -73,19 +71,30 @@ populateDropdown('ingredientsList', uniqueIngredients);
 populateDropdown('appareilsList', uniqueAppliances);
 populateDropdown('ustensilsList', uniqueUstensils);
 
+
+/**
+ * verifie, affiche, supprime les tags sélectionnés
+ * @param {*} item 
+ * @returns 
+ */
 const addSelectedTag = (item) => {
+  if (selectedTags.includes(item)) {
+    console.log("Tag déjà sélectionné");
+    return;
+  }
+
   const selectedTagsContainer = document.getElementById('selected-tags');
 
-  // Créer le conteneur pour le tag
+  
   const tagContainer = document.createElement('div');
-  tagContainer.classList.add('tag-container'); // Ajoutez des styles appropriés pour ce conteneur
+  tagContainer.classList.add('tag-container', 'tagButton'); // Ajoutez des styles appropriés pour ce conteneur
 
-  // Créer le span pour le texte du tag
+ 
   const tagText = document.createElement('span');
   tagText.textContent = item;
   tagText.classList.add('selected-tag'); // Ajoutez des styles appropriés pour les tags
 
-  // Créer le bouton avec SVG pour supprimer le tag
+  
   const removeBtn = document.createElement('button');
   removeBtn.setAttribute('type', 'button');
   removeBtn.classList.add('remove-tag-btn', 'text-sm', 'font-medium', 'text-black', 'rounded-xl', 'focus:ring-4', 'focus:outline-none');
@@ -96,32 +105,30 @@ const addSelectedTag = (item) => {
       <span class="sr-only">Remove tag</span>
   `;
   removeBtn.addEventListener('click', function(event) {
-      event.preventDefault(); // Empêchez le comportement par défaut du bouton
+      event.preventDefault();
       selectedTagsContainer.removeChild(tagContainer);
       console.log("Tag supprimé");
 
-      // Retirer le tag du tableau
+  
     selectedTags = selectedTags.filter(t => t !== item);
 
-    // Relancer la recherche avec les tags restants
     searchRecipes();
   });
 
-  // Ajouter le texte du tag et le bouton de suppression au conteneur du tag
   tagContainer.appendChild(tagText);
   tagContainer.appendChild(removeBtn);
 
-  if (!selectedTags.includes(item)) {
-    selectedTags.push(item);
-}
 
-  // Ajouter le conteneur du tag au conteneur global des tags sélectionnés
   selectedTagsContainer.appendChild(tagContainer);
+  searchRecipes();
+
+  
+  selectedTags.push(item);
+  
   searchRecipes();
 };
 
 
-// Supposons que `uniqueIngredients`, `uniqueAppliances`, et `uniqueUstensils` sont vos tableaux d'éléments uniques
 filterAndPopulateDropdown('searchInputING', 'ingredientsList', uniqueIngredients);
 filterAndPopulateDropdown('searchInputAPP', 'appareilsList', uniqueAppliances);
 filterAndPopulateDropdown('searchInputUST', 'ustensilsList', uniqueUstensils);
@@ -132,22 +139,21 @@ function filterAndPopulateDropdown(inputId, listId, itemsArray) {
       const searchQuery = this.value.toLowerCase();
       let itemsToDisplay = [];
 
-      // Vérifier que la longueur de la chaîne de recherche est d'au moins 3 caractères
+      
       if (searchQuery.length >= 3) {
           itemsToDisplay = itemsArray.filter(item =>
               item.toLowerCase().includes(searchQuery)
           );
       } else {
-          itemsToDisplay = itemsArray; // Afficher tous les éléments si la chaîne de recherche est vide ou moins de 3 caractères
+          itemsToDisplay = itemsArray;
       }
 
       populateDropdown(listId, itemsToDisplay);
   });
 }
 
-
+// créé la carte de la recette dans le html
 function createRecipeCard(recipe) {
-    // Générer les ingrédients
     const ingredientsHtml = recipe.ingredients.map(ing => `
         <div class="flex flex-col mb-[1.3em] w-[35%] mr-[10%]">
             <p class="text-xs font-medium">${ing.ingredient}</p>
@@ -155,7 +161,6 @@ function createRecipeCard(recipe) {
         </div>
     `).join('');
 
-    // Retourner la structure de la carte de recette
     return `
         <div class="w-[27vw] h-[100%] mb-6 bg-white rounded-xl relative">
             <div class="w-full h-[220px]">
@@ -183,19 +188,20 @@ function createRecipeCard(recipe) {
     `;
 }
 
-// Récupérer les éléments
+
 const searchInput = document.getElementById('searchInput');
 const searchButton = document.getElementById('searchButton');
 
 searchButton.addEventListener('click', searchRecipes);
 
+// algo de recherche de recettes avec les tags
 function searchRecipes(event) {
-  // Ajouter un écouteur d'événement sur le bouton
+  
   if (event && event.preventDefault) {
     event.preventDefault();
   }
 
-  // Récupérer la valeur du champ input
+  
   const searchTerm = searchInput.value;
 
   let results = [];
@@ -206,7 +212,13 @@ function searchRecipes(event) {
     const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
     const recipeTags = [...ingredients, appliance, ...ustensils];
 
-    const matchesSearchTerm = searchTerm.length < 3 || recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) || recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const searchTermHasMoreThan3Characters = searchTerm.length >= 3;
+    const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesSearchTerm = searchTermHasMoreThan3Characters 
+    || recipeNameIsInSearchTerm
+    || recipeDescriptionIsInSearchTerm
     const matchesTags = selectedTags.every(tag => recipeTags.includes(tag.toLowerCase()));
 
     if (matchesSearchTerm && matchesTags) {
@@ -214,8 +226,25 @@ function searchRecipes(event) {
     }
 });
 
-  // Afficher les résultats
+  
   displayRecipes(results);
+  updateDropdowns(results);
+}
+
+//met a jour les listes déroulante en fonction des résultats de la recherche
+function updateDropdowns(filteredRecipes) {
+  const uniqueIngredients = getAllUniqueFromFiltered('ingredients', filteredRecipes).map(ingredient => ingredient.ingredient);
+  const uniqueAppliances = getAllUniqueFromFiltered('appliance', filteredRecipes);
+  const uniqueUstensils = getAllUniqueFromFiltered('ustensils', filteredRecipes).flat();
+
+
+  populateDropdown('ingredientsList', uniqueIngredients);
+  populateDropdown('appareilsList', uniqueAppliances);
+  populateDropdown('ustensilsList', uniqueUstensils);
+}
+
+function getAllUniqueFromFiltered(category, filteredRecipes) {
+  return [...new Set(filteredRecipes.flatMap(recipe => recipe[category]))];
 }
 
 // Fonction pour afficher les recettes
