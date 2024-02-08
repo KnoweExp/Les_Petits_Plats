@@ -186,6 +186,14 @@ function createRecipeCard(recipe) {
     `;
 }
 
+const searchButton = document.getElementById('searchButton');
+
+
+searchButton.addEventListener('click', function(event) {
+  event.preventDefault();
+
+  mainSearch(event);
+});
 
 document.getElementById('searchInput').addEventListener('input', function(event) {
   const searchTerm = event.target.value.trim();
