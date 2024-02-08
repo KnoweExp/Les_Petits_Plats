@@ -58,8 +58,7 @@ const populateDropdown = (listId, items) => {
 
     a.addEventListener('click', function() {
       addSelectedTag(item);
-      // TODO : mettre à jour la recherche globale avec le nouvel ustensile sélectionné
-      // updateGlobalSearch(item);
+      
   });
 
     li.appendChild(a); 
@@ -87,32 +86,31 @@ const addSelectedTag = (item) => {
 
   
   const tagContainer = document.createElement('div');
-  tagContainer.classList.add('tag-container', 'tagButton'); // Ajoutez des styles appropriés pour ce conteneur
+  tagContainer.classList.add('tag-container', 'tagButton'); 
 
  
   const tagText = document.createElement('span');
   tagText.textContent = item;
-  tagText.classList.add('selected-tag'); // Ajoutez des styles appropriés pour les tags
+  tagText.classList.add('selected-tag');
 
   
   const removeBtn = document.createElement('button');
   removeBtn.setAttribute('type', 'button');
   removeBtn.classList.add('remove-tag-btn', 'text-sm', 'font-medium', 'text-black', 'rounded-xl', 'focus:ring-4', 'focus:outline-none');
   removeBtn.innerHTML = `
-      <svg height="15px" viewBox="0 0 512 512" width="15px" xmlns="http://www.w3.org/2000/svg">
-          <!-- Votre SVG ici -->
+      <svg height="25px" viewBox="0 0 512 512" width="25px" xmlns="http://www.w3.org/2000/svg">
+      <svg fill="#000000" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <polygon points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512 512,452.922 315.076,256 "></polygon> </g> </g> </g></svg>
       </svg>
       <span class="sr-only">Remove tag</span>
   `;
   removeBtn.addEventListener('click', function(event) {
       event.preventDefault();
       selectedTagsContainer.removeChild(tagContainer);
-      console.log("Tag supprimé");
 
   
     selectedTags = selectedTags.filter(t => t !== item);
 
-    searchRecipes();
+    mainSearch();
   });
 
   tagContainer.appendChild(tagText);
@@ -120,12 +118,12 @@ const addSelectedTag = (item) => {
 
 
   selectedTagsContainer.appendChild(tagContainer);
-  searchRecipes();
+  mainSearch();
 
   
   selectedTags.push(item);
   
-  searchRecipes();
+  mainSearch();
 };
 
 
@@ -189,47 +187,86 @@ function createRecipeCard(recipe) {
 }
 
 
-const searchInput = document.getElementById('searchInput');
-const searchButton = document.getElementById('searchButton');
-
-searchButton.addEventListener('click', searchRecipes);
-
-// algo de recherche de recettes avec les tags
-function searchRecipes(event) {
+document.getElementById('searchInput').addEventListener('input', function(event) {
+  const searchTerm = event.target.value.trim();
   
+  if (searchTerm.length >= 3) {
+      mainSearch(event);
+  }
+});
+
+function mainSearch(event) {
   if (event && event.preventDefault) {
-    event.preventDefault();
+      event.preventDefault();
+  }
+
+  const searchTerm = searchInput.value;
+  let results = [];
+
+  for (let i = 0; i < recipes.length; i++) {
+      const recipe = recipes[i];
+      const searchTermHasMoreThan3Characters = searchTerm.length <= 3;
+      const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+      if (searchTermHasMoreThan3Characters || recipeNameIsInSearchTerm || recipeDescriptionIsInSearchTerm) {
+          results.push(recipe);
+      }
+  }
+
+  if (results.length > 0) {
+    displayRecipes(results);
+    displayNoResultsMessage("");
+} else {
+    displayNoResultsMessage(searchTerm);
+}
+
+  filterByTags(results);
+  updateDropdowns(results);
+}
+
+// Affiche un message pour indiquer qu'il n'y a pas de résultat
+function displayNoResultsMessage(searchTerm) {
+  const messageContainer = document.getElementById('recipes-container');
+  const defaultMessage = "Vous pouvez chercher « tarte aux pommes » par exemple.";
+
+  
+  if (searchTerm) {
+      messageContainer.innerHTML = `Aucune recette ne contient '${searchTerm}'. ${defaultMessage}`;
+  } else {
+      messageContainer.innerHTML = defaultMessage;
+  }
+}
+
+
+function filterByTags(recipesToFilter) {
+  let filteredResults = [];
+
+  for (let i = 0; i < recipesToFilter.length; i++) {
+      const recipe = recipesToFilter[i];
+      const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
+      const appliance = recipe.appliance.toLowerCase();
+      const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
+      const recipeTags = [...ingredients, appliance, ...ustensils];
+
+      let matchesTags = true;
+      for (let j = 0; j < selectedTags.length; j++) {
+          if (!recipeTags.includes(selectedTags[j].toLowerCase())) {
+              matchesTags = false;
+              break;
+          }
+      }
+
+      if (matchesTags) {
+          filteredResults.push(recipe);
+      }
   }
 
   
-  const searchTerm = searchInput.value;
-
-  let results = [];
-
-  recipes.forEach(recipe => {
-    const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
-    const appliance = recipe.appliance.toLowerCase();
-    const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
-    const recipeTags = [...ingredients, appliance, ...ustensils];
-
-    const searchTermHasMoreThan3Characters = searchTerm.length >= 3;
-    const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-    const matchesSearchTerm = searchTermHasMoreThan3Characters 
-    || recipeNameIsInSearchTerm
-    || recipeDescriptionIsInSearchTerm
-    const matchesTags = selectedTags.every(tag => recipeTags.includes(tag.toLowerCase()));
-
-    if (matchesSearchTerm && matchesTags) {
-        results.push(recipe);
-    }
-});
-
-  
-  displayRecipes(results);
-  updateDropdowns(results);
+  displayRecipes(filteredResults);
+  updateDropdowns(filteredResults);
 }
+
 
 //met a jour les listes déroulante en fonction des résultats de la recherche
 function updateDropdowns(filteredRecipes) {

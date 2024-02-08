@@ -139,16 +139,19 @@ body:not(.dropdown-open) ul li a {
 .remove-tag-btn svg {
   fill: #000; /* Couleur du SVG, assurez-vous qu'elle est visible sur le fond */
   position: relative;
-  z-index: 11; /* Assurez-vous que le SVG est au-dessus du fond du bouton */
 }
 
+
+
 .remove-tag-btn:hover svg {
-  fill: #555; /* Changez la couleur au survol pour indiquer l'interactivité */
+  fill: #555;
 }
 
 .remove-tag-btn:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Effet de survol léger pour le fond du bouton */
+  background-color: rgba(0, 0, 0, 0.1);
 }
+
+
 
 
 
