@@ -78,7 +78,6 @@ populateDropdown('ustensilsList', uniqueUstensils);
  */
 const addSelectedTag = (item) => {
   if (selectedTags.includes(item)) {
-    console.log("Tag déjà sélectionné");
     return;
   }
 
@@ -187,43 +186,42 @@ function createRecipeCard(recipe) {
 }
 
 
-document.getElementById('searchInput').addEventListener('input', function(event) {
-  const searchTerm = event.target.value.trim();
-  
-  if (searchTerm.length >= 3) {
-      mainSearch(event);
-  }
-});
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
 
-function mainSearch(event) {
-  if (event && event.preventDefault) {
-      event.preventDefault();
-  }
+searchInput.addEventListener('input', handleSearchInput);
 
-  const searchTerm = searchInput.value;
-  let results = [];
+function handleSearchInput(event) {
+    const searchTerm = event.target.value.trim().toLowerCase();
+    if (searchTerm.length >= 3) {
+        mainSearch(searchTerm);
+    }
+}
 
-  for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i];
-      const searchTermHasMoreThan3Characters = searchTerm.length <= 3;
-      const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
+function mainSearch(searchTerm) {
+    let results = [];
+    recipes.forEach(recipe => {
+        const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
+        const appliance = recipe.appliance.toLowerCase();
+        const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
+        const recipeTags = [...ingredients, appliance, ...ustensils];
 
-      if (searchTermHasMoreThan3Characters || recipeNameIsInSearchTerm || recipeDescriptionIsInSearchTerm) {
-          results.push(recipe);
-      }
-  }
+        const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm);
+        const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm);
 
-  if (results.length > 0) {
+        const matchesSearchTerm = recipeNameIsInSearchTerm || recipeDescriptionIsInSearchTerm;
+        const matchesTags = selectedTags.every(tag => recipeTags.includes(tag.toLowerCase()));
+
+        if (matchesSearchTerm && matchesTags) {
+            results.push(recipe);
+        }
+    });
     displayRecipes(results);
-    displayNoResultsMessage("");
-} else {
-    displayNoResultsMessage(searchTerm);
+    updateDropdowns(results);
 }
 
-  filterByTags(results);
-  updateDropdowns(results);
-}
+
+
 
 // Affiche un message pour indiquer qu'il n'y a pas de résultat
 function displayNoResultsMessage(searchTerm) {
@@ -237,36 +235,6 @@ function displayNoResultsMessage(searchTerm) {
       messageContainer.innerHTML = defaultMessage;
   }
 }
-
-
-function filterByTags(recipesToFilter) {
-  let filteredResults = [];
-
-  for (let i = 0; i < recipesToFilter.length; i++) {
-      const recipe = recipesToFilter[i];
-      const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
-      const appliance = recipe.appliance.toLowerCase();
-      const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
-      const recipeTags = [...ingredients, appliance, ...ustensils];
-
-      let matchesTags = true;
-      for (let j = 0; j < selectedTags.length; j++) {
-          if (!recipeTags.includes(selectedTags[j].toLowerCase())) {
-              matchesTags = false;
-              break;
-          }
-      }
-
-      if (matchesTags) {
-          filteredResults.push(recipe);
-      }
-  }
-
-  
-  displayRecipes(filteredResults);
-  updateDropdowns(filteredResults);
-}
-
 
 //met a jour les listes déroulante en fonction des résultats de la recherche
 function updateDropdowns(filteredRecipes) {
