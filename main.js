@@ -109,7 +109,7 @@ const addSelectedTag = (item) => {
   
     selectedTags = selectedTags.filter(t => t !== item);
 
-    mainSearch();
+    searchRecipes();
   });
 
   tagContainer.appendChild(tagText);
@@ -117,12 +117,12 @@ const addSelectedTag = (item) => {
 
 
   selectedTagsContainer.appendChild(tagContainer);
-  mainSearch();
+  searchRecipes();
 
   
   selectedTags.push(item);
   
-  mainSearch();
+  searchRecipes();
 };
 
 
@@ -189,35 +189,43 @@ function createRecipeCard(recipe) {
 const searchInput = document.getElementById('searchInput');
 const searchButton = document.getElementById('searchButton');
 
-searchInput.addEventListener('input', handleSearchInput);
+ searchButton.addEventListener('click', searchRecipes);
 
-function handleSearchInput(event) {
-    const searchTerm = event.target.value.trim().toLowerCase();
-    if (searchTerm.length >= 3) {
-        mainSearch(searchTerm);
+// algo de recherche de recettes avec les tags
+ function searchRecipes(event) {
+  
+  if (event && event.preventDefault) {
+    event.preventDefault();
+  }
+
+  
+  const searchTerm = searchInput.value;
+
+  let results = [];
+
+  recipes.forEach(recipe => {
+    const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
+    const appliance = recipe.appliance.toLowerCase();
+    const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
+    const recipeTags = [...ingredients, appliance, ...ustensils];
+
+    const searchTermHasMoreThan3Characters = searchTerm.length <= 3;
+    const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesSearchTerm = searchTermHasMoreThan3Characters 
+    || recipeNameIsInSearchTerm
+    || recipeDescriptionIsInSearchTerm
+    const matchesTags = selectedTags.every(tag => recipeTags.includes(tag.toLowerCase()));
+
+    if (matchesSearchTerm && matchesTags) {
+        results.push(recipe);
     }
-}
+});
 
-function mainSearch(searchTerm) {
-    let results = [];
-    recipes.forEach(recipe => {
-        const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
-        const appliance = recipe.appliance.toLowerCase();
-        const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
-        const recipeTags = [...ingredients, appliance, ...ustensils];
-
-        const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm);
-        const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm);
-
-        const matchesSearchTerm = recipeNameIsInSearchTerm || recipeDescriptionIsInSearchTerm;
-        const matchesTags = selectedTags.every(tag => recipeTags.includes(tag.toLowerCase()));
-
-        if (matchesSearchTerm && matchesTags) {
-            results.push(recipe);
-        }
-    });
-    displayRecipes(results);
-    updateDropdowns(results);
+  
+  displayRecipes(results);
+  updateDropdowns(results);
 }
 
 
