@@ -229,21 +229,6 @@ const searchButton = document.getElementById('searchButton');
 }
 
 
-
-
-// Affiche un message pour indiquer qu'il n'y a pas de résultat
-function displayNoResultsMessage(searchTerm) {
-  const messageContainer = document.getElementById('recipes-container');
-  const defaultMessage = "Vous pouvez chercher « tarte aux pommes » par exemple.";
-
-  
-  if (searchTerm) {
-      messageContainer.innerHTML = `Aucune recette ne contient '${searchTerm}'. ${defaultMessage}`;
-  } else {
-      messageContainer.innerHTML = defaultMessage;
-  }
-}
-
 //met a jour les listes déroulante en fonction des résultats de la recherche
 function updateDropdowns(filteredRecipes) {
   const uniqueIngredients = getAllUniqueFromFiltered('ingredients', filteredRecipes).map(ingredient => ingredient.ingredient);
@@ -270,7 +255,19 @@ function displayRecipes(filteredRecipes) {
       cardElement.innerHTML = cardHtml;
       container.appendChild(cardElement);
     });
+
+    const recipeCountElement = document.getElementById('recipeCount'); // Remplacez 'recipesContainer' par l'ID réel de votre conteneur de recettes
+    recipeCountElement.innerHTML = '';
+    const testElement = document.getElementById('testElement'); // Assurez-vous que cet élément existe dans votre HTML
+    testElement.textContent = `Mise à jour à ${new Date().toLocaleTimeString()}`;
+
+    updateRecipeCount(filteredRecipes.length);
   }
+
+  function updateRecipeCount(count) {
+    const recipeCountElement = document.getElementById('recipeCount');
+    recipeCountElement.textContent = `${count} recette${count > 1 ? 's' : ''}`; // Ajoute un 's' à "recette" si le nombre est supérieur à 1
+}
 
   
 
