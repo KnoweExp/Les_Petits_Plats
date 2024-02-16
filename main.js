@@ -302,7 +302,20 @@ function displayRecipes(filteredRecipes) {
       cardElement.innerHTML = cardHtml;
       container.appendChild(cardElement);
     });
+
+    const recipeCountElement = document.getElementById('recipeCount'); // Remplacez 'recipesContainer' par l'ID réel de votre conteneur de recettes
+    recipeCountElement.innerHTML = '';
+    const testElement = document.getElementById('testElement'); // Assurez-vous que cet élément existe dans votre HTML
+    testElement.textContent = `Mise à jour à ${new Date().toLocaleTimeString()}`;
+
+    updateRecipeCount(filteredRecipes.length);
   }
+
+
+function updateRecipeCount(count) {
+  const recipeCountElement = document.getElementById('recipeCount');
+  recipeCountElement.textContent = `${count} recette${count > 1 ? 's' : ''}`; // Ajoute un 's' à "recette" si le nombre est supérieur à 1
+}
 
   
 
