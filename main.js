@@ -109,7 +109,7 @@ const addSelectedTag = (item) => {
   
     selectedTags = selectedTags.filter(t => t !== item);
 
-    searchRecipes();
+    mainSearch();
   });
 
   tagContainer.appendChild(tagText);
@@ -117,12 +117,12 @@ const addSelectedTag = (item) => {
 
 
   selectedTagsContainer.appendChild(tagContainer);
-  searchRecipes();
+  mainSearch();
 
   
   selectedTags.push(item);
   
-  searchRecipes();
+  mainSearch();
 };
 
 
@@ -186,47 +186,64 @@ function createRecipeCard(recipe) {
 }
 
 
-const searchInput = document.getElementById('searchInput');
 const searchButton = document.getElementById('searchButton');
 
- searchButton.addEventListener('click', searchRecipes);
+
+searchButton.addEventListener('click', function(event) {
+  event.preventDefault();
+
+  mainSearch(event);
+});
+
+document.getElementById('searchInput').addEventListener('input', function(event) {
+  const searchTerm = event.target.value.trim();
+  
+  if (searchTerm.length >= 3) {
+      mainSearch(event);
+  }
+});
 
 // algo de recherche de recettes avec les tags
- function searchRecipes(event) {
+
+function mainSearch(event) {
   
   if (event && event.preventDefault) {
     event.preventDefault();
   }
+    const searchTerm = document.getElementById('searchInput').value;
+    let results = [];
 
-  
-  const searchTerm = searchInput.value;
-
-  let results = [];
-
-  recipes.forEach(recipe => {
-    const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
-    const appliance = recipe.appliance.toLowerCase();
-    const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
-    const recipeTags = [...ingredients, appliance, ...ustensils];
-
-    const searchTermHasMoreThan3Characters = searchTerm.length <= 3;
-    const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-    const matchesSearchTerm = searchTermHasMoreThan3Characters 
-    || recipeNameIsInSearchTerm
-    || recipeDescriptionIsInSearchTerm
-    const matchesTags = selectedTags.every(tag => recipeTags.includes(tag.toLowerCase()));
-
-    if (matchesSearchTerm && matchesTags) {
-        results.push(recipe);
+    // Filtrage basé sur le texte saisi
+    if (searchTerm.length >= 3) {
+        results = recipes.filter(recipe => {
+            return recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                   recipe.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                   recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(searchTerm.toLowerCase()));
+        });
+    } else {
+        results = recipes;
     }
-});
 
-  
-  displayRecipes(results);
-  updateDropdowns(results);
+    results = filterByTags(results);
+
+    displayRecipes(results);
+    updateDropdowns(results);
 }
+
+function filterByTags(recipesToFilter) {
+  if (selectedTags.length === 0) return recipesToFilter;
+
+  return recipesToFilter.filter(recipe => {
+      const ingredients = recipe.ingredients.map(ing => ing.ingredient.toLowerCase());
+      const appliance = recipe.appliance.toLowerCase();
+      const ustensils = recipe.ustensils.map(ust => ust.toLowerCase());
+      const recipeTags = [...ingredients, appliance, ...ustensils];
+
+      return selectedTags.every(tag => recipeTags.includes(tag.toLowerCase()));
+  });
+}
+
+
 
 
 //met a jour les listes déroulante en fonction des résultats de la recherche
@@ -256,17 +273,18 @@ function displayRecipes(filteredRecipes) {
       container.appendChild(cardElement);
     });
 
-    const recipeCountElement = document.getElementById('recipeCount'); // Remplacez 'recipesContainer' par l'ID réel de votre conteneur de recettes
-    recipeCountElement.innerHTML = '';
-    const testElement = document.getElementById('testElement'); // Assurez-vous que cet élément existe dans votre HTML
-    testElement.textContent = `Mise à jour à ${new Date().toLocaleTimeString()}`;
-
+  
     updateRecipeCount(filteredRecipes.length);
   }
 
+
   function updateRecipeCount(count) {
-    const recipeCountElement = document.getElementById('recipeCount');
-    recipeCountElement.textContent = `${count} recette${count > 1 ? 's' : ''}`; // Ajoute un 's' à "recette" si le nombre est supérieur à 1
+    const recipeCountNumberElement = document.getElementById('recipeCountNumber');
+    const recipeCountTextElement = document.getElementById('recipeCountText');
+
+    recipeCountNumberElement.textContent = count;
+
+    recipeCountTextElement.textContent = `recette${count > 1 ? 's' : ''}`;
 }
 
   

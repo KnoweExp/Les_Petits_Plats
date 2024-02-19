@@ -38,104 +38,107 @@
 
     </header>
 
-<div class="bg-gray-200">
+    <div class="bg-gray-200">
 
-    <div class="flex flex-col justify-between relative top-5 text-black px-40">
-        
-        <div class="w-full flex space-x-16">
-            
-            <div id="ingredients-dropdown" class="relative">
-                <button id="ingredientsButton" class="flex items-center space-x-1 cursor-pointer">
-                    <span class="text-lg">Ingrédients</span>
-                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div id="ingredientsMenu" class="absolute top-full min-w-max rounded opacity-0 transition delay-75 ease-in-out z-10">
-                    <div class="flex flex-col">
-                        <form action="votre-action-de-recherche" method="get" class="action-Ustensiles flex p-2 items-center">
-                            <input id="searchInputING" type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
-                            <button id="searchButtonING" type="submit" class="p-3.5 text-sm font-medium text-black rounded-xl focus:ring-4 focus:outline-none" disabled>
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                                <span class="sr-only">Search</span>
-                            </button>
-                        </form>
-                        <ul id="ingredientsList" class="block text-right text-gray-900">
+        <div class="flex flex-col justify-between relative top-5 text-black px-40">
+            <div class="w-full flex justify-between">
+                <div class="w-full flex space-x-16">
                     
-                        </ul>
+                    <div id="ingredients-dropdown" class="relative">
+                        <button id="ingredientsButton" class="flex items-center space-x-1 cursor-pointer">
+                            <span class="text-lg">Ingrédients</span>
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="ingredientsMenu" class="absolute top-full min-w-max rounded opacity-0 transition delay-75 ease-in-out z-10">
+                            <div class="flex flex-col">
+                                <form action="votre-action-de-recherche" method="get" class="action-Ustensiles flex p-2 items-center">
+                                    <input id="searchInputING" type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
+                                    <button id="searchButtonING" type="submit" class="p-3.5 text-sm font-medium text-black rounded-xl focus:ring-4 focus:outline-none" disabled>
+                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                        <span class="sr-only">Search</span>
+                                    </button>
+                                </form>
+                                <ul id="ingredientsList" class="block text-right text-gray-900">
+                            
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            
-            <div id="appareils-dropdown" class="relative">
-                <button id="appareilsButton" class="flex items-center space-x-1 cursor-pointer">
-                    <span class="text-lg">Appareils</span>
-                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div id="appareilsMenu" class="absolute top-full min-w-max rounded opacity-0 transition delay-75 ease-in-out z-10">
-                    <div class="flex flex-col">
-                        <form action="votre-action-de-recherche" method="get" class="action-Ustensiles flex p-2 items-center">
-                            <input id="searchInputAPP" type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
-                            <button id="searchButtonAPP" type="submit" class="p-3.5 text-sm font-medium text-black rounded-xl focus:ring-4 focus:outline-none" disabled>
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                                <span class="sr-only">Search</span>
-                            </button>
-                        </form>
-                        <ul id="appareilsList" class="block text-right text-gray-900">
-                        </ul>
+                    
+                    <div id="appareils-dropdown" class="relative">
+                        <button id="appareilsButton" class="flex items-center space-x-1 cursor-pointer">
+                            <span class="text-lg">Appareils</span>
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="appareilsMenu" class="absolute top-full min-w-max rounded opacity-0 transition delay-75 ease-in-out z-10">
+                            <div class="flex flex-col">
+                                <form action="votre-action-de-recherche" method="get" class="action-Ustensiles flex p-2 items-center">
+                                    <input id="searchInputAPP" type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
+                                    <button id="searchButtonAPP" type="submit" class="p-3.5 text-sm font-medium text-black rounded-xl focus:ring-4 focus:outline-none" disabled>
+                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                        <span class="sr-only">Search</span>
+                                    </button>
+                                </form>
+                                <ul id="appareilsList" class="block text-right text-gray-900">
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            
-            
-            <div id="ustensils-dropdown" class="relative">
-                <button id="ustensilsButton" class="flex items-center space-x-1 cursor-pointer">
-                    <span class="text-lg">Ustensiles</span>
-                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div id="ustensilsMenu" class="absolute top-full min-w-max rounded opacity-0 transition delay-75 ease-in-out z-10">
-                    <div class="flex flex-col">
-                        <form action="votre-action-de-recherche" method="get" class="action-Ustensiles flex p-2 items-center">
-                            <input id="searchInputUST" type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
-                            <button id="searchButtonUST" type="submit" class="p-3.5 text-sm font-medium text-black rounded-xl focus:ring-4 focus:outline-none" disabled>
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                                <span class="sr-only">Search</span>
-                            </button>
-                        </form>
-                            <ul id="ustensilsList" class="block text-right text-gray-900">
-                            </ul>
+                    
+                    
+                    <div id="ustensils-dropdown" class="relative">
+                        <button id="ustensilsButton" class="flex items-center space-x-1 cursor-pointer">
+                            <span class="text-lg">Ustensiles</span>
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="ustensilsMenu" class="absolute top-full min-w-max rounded opacity-0 transition delay-75 ease-in-out z-10">
+                            <div class="flex flex-col">
+                                <form action="votre-action-de-recherche" method="get" class="action-Ustensiles flex p-2 items-center">
+                                    <input id="searchInputUST" type="search" name="search" placeholder="Rechercher..." class="w-full border-none bg-transparent px-4 py-1 text-gray-900 outline-none focus:outline-none">
+                                    <button id="searchButtonUST" type="submit" class="p-3.5 text-sm font-medium text-black rounded-xl focus:ring-4 focus:outline-none" disabled>
+                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                        <span class="sr-only">Search</span>
+                                    </button>
+                                </form>
+                                    <ul id="ustensilsList" class="block text-right text-gray-900">
+                                    </ul>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
+                <span id="recipeCount" class="flex items-center space-x-1">
+                    <span id="recipeCountNumber">1500</span>
+                    <span id="recipeCountText">recettes</span>
+                </span>
             </div>
-        
-
-                <span id="recipeCount" class="self-end">1500 recettes</span>
-                <span id="testElement"></span>
-            
-        </div>
-        <div class="contain-tag-selected flex">
-            <div id="selected-tags" class="selected-tags-container">
                 
-            </div>
-        </div>
-
-    </div>
-    
-
-    <div id="recipes-container" class="main-section flex flex-wrap justify-center gap-16 ml-[4%] mr-[4%] mt-8">
         
+    
+            <div class="contain-tag-selected flex">
+                <div id="selected-tags" class="selected-tags-container">
+                    
+                </div>
+            </div>
+    
+        </div>
+        
+        <div id="message-error" class="main-section flex flex-wrap justify-center gap-16 ml-[4%] mr-[4%] mt-20"></div>
+        <div id="recipes-container" class="main-section flex flex-wrap justify-center gap-16 ml-[4%] mr-[4%] mt-8">
+        </div>
     </div>
-</div>
 
 <script type="module" src="/main.js"></script>
 </body>
