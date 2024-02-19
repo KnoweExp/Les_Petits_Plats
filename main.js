@@ -54,7 +54,7 @@ const populateDropdown = (listId, items) => {
     const a = document.createElement('a');
     a.href = '#'; 
     a.textContent = item; 
-    a.classList.add('block', 'px-3', 'py-2', 'hover:bg-gray-200');
+    a.classList.add('block', 'px-3', 'py-2', 'hover:bg-yellow-300');
 
     a.addEventListener('click', function() {
       addSelectedTag(item);
@@ -98,10 +98,12 @@ const addSelectedTag = (item) => {
   removeBtn.setAttribute('type', 'button');
   removeBtn.classList.add('remove-tag-btn', 'text-sm', 'font-medium', 'text-black', 'rounded-xl', 'focus:ring-4', 'focus:outline-none');
   removeBtn.innerHTML = `
-      <svg height="25px" viewBox="0 0 512 512" width="25px" xmlns="http://www.w3.org/2000/svg">
-      <svg fill="#000000" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <polygon points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512 512,452.922 315.076,256 "></polygon> </g> </g> </g></svg>
-      </svg>
-      <span class="sr-only">Remove tag</span>
+  <svg height="15px" width="15px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+  <g>
+      <polygon points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512 512,452.922 315.076,256"></polygon>
+  </g>
+  <span class="sr-only">Remove tag</span>
+</svg>
   `;
   removeBtn.addEventListener('click', function(event) {
       event.preventDefault();
@@ -204,6 +206,7 @@ document.getElementById('searchInput').addEventListener('input', function(event)
 });
 
 function mainSearch(event) {
+  clearErrorMessage();
   if (event && event.preventDefault) {
       event.preventDefault();
   }
@@ -235,14 +238,20 @@ function mainSearch(event) {
 
 // Affiche un message pour indiquer qu'il n'y a pas de résultat
 function displayNoResultsMessage(searchTerm) {
-  const messageContainer = document.getElementById('recipes-container');
+  const messageContainer = document.getElementById('message-error');
   const defaultMessage = "Vous pouvez chercher « tarte aux pommes » par exemple.";
 
   
   if (searchTerm) {
       messageContainer.innerHTML = `Aucune recette ne contient '${searchTerm}'. ${defaultMessage}`;
-  } else {
-      messageContainer.innerHTML = defaultMessage;
+  }
+}
+
+// supprime le message d'erreur
+function clearErrorMessage() {
+  const messageContainer = document.getElementById('message-error');
+  if (messageContainer) {
+      messageContainer.innerHTML = '';
   }
 }
 
@@ -303,18 +312,18 @@ function displayRecipes(filteredRecipes) {
       container.appendChild(cardElement);
     });
 
-    const recipeCountElement = document.getElementById('recipeCount'); // Remplacez 'recipesContainer' par l'ID réel de votre conteneur de recettes
-    recipeCountElement.innerHTML = '';
-    const testElement = document.getElementById('testElement'); // Assurez-vous que cet élément existe dans votre HTML
-    testElement.textContent = `Mise à jour à ${new Date().toLocaleTimeString()}`;
-
+    
     updateRecipeCount(filteredRecipes.length);
   }
 
 
-function updateRecipeCount(count) {
-  const recipeCountElement = document.getElementById('recipeCount');
-  recipeCountElement.textContent = `${count} recette${count > 1 ? 's' : ''}`; // Ajoute un 's' à "recette" si le nombre est supérieur à 1
+  function updateRecipeCount(count) {
+    const recipeCountNumberElement = document.getElementById('recipeCountNumber');
+    const recipeCountTextElement = document.getElementById('recipeCountText');
+
+    recipeCountNumberElement.textContent = count;
+
+    recipeCountTextElement.textContent = `recette${count > 1 ? 's' : ''}`;
 }
 
   

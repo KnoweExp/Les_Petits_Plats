@@ -646,6 +646,10 @@ video {
   margin-right: 4%;
 }
 
+.mt-20 {
+  margin-top: 5rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
@@ -745,10 +749,6 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(4rem * var(--tw-space-x-reverse));
   margin-left: calc(4rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.self-end {
-  align-self: flex-end;
 }
 
 .rounded {
@@ -1043,10 +1043,6 @@ video {
   margin-top: -11px;
 }
 
-/* #ustensilsMenu, form {
-  margin-top: -11px;
-} */
-
 #ustensilsButton {
   border-radius: 11px;
   background-color: rgb(255, 255, 255);
@@ -1139,9 +1135,9 @@ body:not(.dropdown-open) ul li a {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.hover\:bg-gray-200:hover {
+.hover\:bg-yellow-300:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-yellow-400:hover {
