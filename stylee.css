@@ -83,22 +83,22 @@
 }
 
 .show-dropdown {
-  opacity: 1 !important; /* Force l'opacité à 1 */
-  visibility: visible !important; /* Rend le menu visible */
-  transform: translateY(0) !important; /* Remet le menu à sa position initiale si vous avez une transformation appliquée */
-  transition-delay: 0s !important; /* Annule tout délai de transition pour l'affichage */
+  opacity: 1 !important;
+  visibility: visible !important; 
+  transform: translateY(0) !important; 
+  transition-delay: 0s !important; 
 }
 
 
 .dropdown-open ul li a {
-  pointer-events: auto; /* Active la possibilité de cliquer sur les liens lorsque le dropdown est ouvert */
-  cursor: pointer; /* Définit le curseur par défaut pour les liens actifs */
+  pointer-events: auto;
+  cursor: pointer; 
 }
 
 /* Styles pour les liens de tous les dropdowns lorsque aucun dropdown n'est ouvert */
 body:not(.dropdown-open) ul li a {
-  pointer-events: none; /* Désactive la possibilité de cliquer sur les liens lorsque aucun dropdown n'est ouvert */
-  cursor: default; /* Affiche un curseur par défaut pour les liens non actifs */
+  pointer-events: none;
+  cursor: default; 
 }
 
 
@@ -109,9 +109,9 @@ body:not(.dropdown-open) ul li a {
 }
 
 .selected-tags-container {
-  display: flex; /* Affiche les éléments enfants en ligne */
-  flex-wrap: wrap; /* Permet aux éléments enfants de passer à la ligne suivante si nécessaire */
-  gap: 10px; /* Ajoute un peu d'espace entre les tags */
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px;
 }
 
 .tag-container {
@@ -126,12 +126,12 @@ body:not(.dropdown-open) ul li a {
   background: transparent;
   border: none;
   outline: none;
-  position: relative; /* Assurez-vous que le positionnement permet au z-index de fonctionner */
-  z-index: 10; /* Augmentez le z-index si nécessaire */
+  position: relative;
+  z-index: 10;
 }
 
 .remove-tag-btn svg {
-  fill: #000; /* Couleur du SVG, assurez-vous qu'elle est visible sur le fond */
+  fill: #000;
   position: relative;
 }
 

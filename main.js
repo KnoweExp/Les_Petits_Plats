@@ -96,7 +96,7 @@ const addSelectedTag = (item) => {
   
   const removeBtn = document.createElement('button');
   removeBtn.setAttribute('type', 'button');
-  removeBtn.classList.add('remove-tag-btn', 'text-sm', 'font-medium', 'text-black', 'rounded-xl', 'focus:ring-4', 'focus:outline-none');
+  removeBtn.classList.add('remove-tag-btn', 'text-sm', 'font-medium', 'text-black', 'rounded-xl');
   removeBtn.innerHTML = `
   <svg height="15px" width="15px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000">
   <g>
@@ -216,13 +216,15 @@ function mainSearch(event) {
 
   for (let i = 0; i < recipes.length; i++) {
       const recipe = recipes[i];
-      const searchTermHasMoreThan3Characters = searchTerm.length <= 3;
       const recipeNameIsInSearchTerm = recipe.name.toLowerCase().includes(searchTerm.toLowerCase());
       const recipeDescriptionIsInSearchTerm = recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const ingredientIsInSearchTerm = recipe.ingredients.some(ingredient =>
+        ingredient.ingredient.toLowerCase().includes(searchTerm)
+    );
 
-      if (searchTermHasMoreThan3Characters || recipeNameIsInSearchTerm || recipeDescriptionIsInSearchTerm) {
-          results.push(recipe);
-      }
+    if (recipeNameIsInSearchTerm || recipeDescriptionIsInSearchTerm || ingredientIsInSearchTerm) {
+      results.push(recipe);
+  }
   }
 
   if (results.length > 0) {
