@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      textShadow: {
+        'black': '0 20px 20px #000',
+      },
       fontFamily: {
         'anton': ['Anton', 'sans-serif'],
       },

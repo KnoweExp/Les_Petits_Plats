@@ -29,6 +29,14 @@ document.getElementById('ingredientsButton').addEventListener('click', function(
   document.body.classList.toggle('dropdown-open');
 });
 
+document.getElementById('ingredientsSelect').addEventListener('change', function() {
+  if (this.value) {
+      addSelectedTag(this.value);
+      // Assurez-vous de réinitialiser le select après l'ajout pour éviter des sélections répétées involontaires
+      this.selectedIndex = 0;
+  }
+});
+
 
 
 const getAllUnique = (category) => {
@@ -46,27 +54,23 @@ const uniqueUstensils = getAllUnique('ustensils').flat();
  * @param {*} listId est l'identifiant de la catégorie
  * @param {*} items 
  */
-const populateDropdown = (listId, items) => {
-  const listElement = document.getElementById(listId);
-  listElement.innerHTML = '';
+const populateDropdown = (selectId, items) => {
+  const selectElement = document.getElementById(selectId);
+  // Assurez-vous que selectElement est défini et accessible ici
+  selectElement.innerHTML = '<option value="">Choisir...</option>'; // Ajoute une option par défaut
+
   items.forEach(item => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = '#'; 
-    a.textContent = item; 
-    a.classList.add('block', 'px-3', 'py-2', 'hover:bg-yellow-300');
-
-    a.addEventListener('click', function() {
-      addSelectedTag(item);
-      
+      const option = document.createElement('option');
+      option.value = item; // Ajustez si nécessaire pour votre structure de données
+      option.textContent = item;
+      selectElement.appendChild(option);
   });
-
-    li.appendChild(a); 
-    listElement.appendChild(li);
-});
 };
 
+
+
 populateDropdown('ingredientsList', uniqueIngredients);
+populateDropdown('ingredientsSelect', uniqueIngredients)
 populateDropdown('appareilsList', uniqueAppliances);
 populateDropdown('ustensilsList', uniqueUstensils);
 
@@ -164,7 +168,7 @@ function createRecipeCard(recipe) {
     return `
         <div class="w-[27vw] h-[100%] mb-6 bg-white rounded-xl relative">
             <div class="w-full h-[220px]">
-                <span class="pl-2 pt-0.5 w-[50px] h-[20px] text-[10px] bg-yellow rounded-3xl top-4 right-4 absolute pl-1.5 ">${recipe.time} min</span>
+                <span class="pl-2 pt-0.5 w-[50px] h-[20px] text-[10px] bg-yellow-950 border rounded-3xl top-4 right-4 absolute pl-1.5 ">${recipe.time} min</span>
                 <img src="./img/${recipe.image}" class="h-full w-full object-cover rounded-t-xl">
             </div>
             <div class="ml-4 mr-4 h-full">
@@ -211,7 +215,7 @@ function mainSearch(event) {
       event.preventDefault();
   }
 
-  const searchTerm = searchInput.value;
+  const searchTerm = searchInput.value.toLowerCase();
   let results = [];
 
   for (let i = 0; i < recipes.length; i++) {
